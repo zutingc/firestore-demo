@@ -1,24 +1,25 @@
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import BackendDemo from './pages/BackendDemo';
+import firebaseConfig from './backend/firebaseConfig';
+import { initializeApp } from 'firebase/app';
+import { handleAuthorizationCode, initiateAuthentication } from './fitbit/fitbitAuth';
+
+const app = initializeApp(firebaseConfig);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<BackendDemo />} />
+        <Route path="*" element={<Navigate to="/login" />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
