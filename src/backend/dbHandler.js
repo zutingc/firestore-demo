@@ -19,14 +19,11 @@ const dbHandler = ({ collectionName }) => {
             }
             // Use map to create an array of promises
             const dataPromises = querySnapshot.docs.map(async (doc) => {
-                console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
                 return doc.data();
             });
     
             // Use Promise.all to wait for all promises to resolve
-            const allData = await Promise.all(dataPromises);
-    
-            return allData;
+            return await Promise.all(dataPromises);
         } catch (error) {
             console.error("Error getting documents: ", error);
             return [];
